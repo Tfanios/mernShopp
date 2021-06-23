@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: "https://mernshopp-fanis.netlify.app/",
+  origin: "https://mernshopp-fanis.netlify.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: false
 }));
