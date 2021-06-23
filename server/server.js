@@ -22,13 +22,12 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://mernshopp-fanis.netlify.app/",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: false
 }));
 
 app.use('/product', productRoutes)
-app.get('/', (req, res) => { res.send('Hello from Express!')})
 
 
 
