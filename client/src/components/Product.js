@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card,Button,Image } from 'react-bootstrap'
-import ReadMoreReact from 'read-more-react';
+// import ReadMoreReact from 'read-more-react';
 import { NavLink } from 'react-router-dom'
 
 
