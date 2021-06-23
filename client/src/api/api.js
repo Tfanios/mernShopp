@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const url = 'http://localhost:5000'
-const productionURL = 'https://mernshopp-fanis.herokuapp.com/'
+const productionURL = 'https://mernshopp-fanis.herokuapp.com'
 
 axios.defaults.withCredentials = false
 
