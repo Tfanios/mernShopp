@@ -28,12 +28,13 @@ app.use(cors({
 }));
 
 app.use('/product', productRoutes)
+app.get('/', (req, res) => { res.send('Hello from Express!')})
 
 
 
 
 mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
+  .then(() => app.listen(PORT, () => console.log(`Server Running on Port`)))
   .catch((error) => console.log(`${error} did not connect`));
 
 
