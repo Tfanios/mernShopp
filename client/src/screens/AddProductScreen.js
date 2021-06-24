@@ -13,7 +13,7 @@ const AddProductScreen = () => {
     const [productData, setProductData] =  useState({category:'',name:'', description:'',  brand:'', price:0 ,countInStock:0, image:'' })
     const submitHandler = async(e) =>{
         e.preventDefault()
-        await createProduct(productData)
+        // await createProduct(productData)
     }
     
     

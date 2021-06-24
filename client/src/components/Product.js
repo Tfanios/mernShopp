@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom'
 // }
 
 const Product = (product) =>{
-    const productPath = `/product/${product.id}`
+    const editPath = `/product/${product.id}/edit`
 
     const clickHandler = () =>{
         let products = [];
@@ -35,8 +35,9 @@ const Product = (product) =>{
     <Card style={{ width: '100%',height:'450px'}}>
         <Image  src={product.img} className='ratio ratio-21x9' fluid style={{maxHeight:'200px',margin:'auto',maxWidth:'350px',objectFit:'cover'}} />
         <Card.Body>
-            <NavLink to={productPath}>
-                <Card.Title>{product.name}</Card.Title>                
+            <Card.Title>{product.name}</Card.Title>                
+            <NavLink to={editPath}>
+                <p>Edit</p>
             </NavLink>
             <p>{product.price} $</p>
             <p>{product.description}</p>
