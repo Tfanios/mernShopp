@@ -26,13 +26,13 @@ const CartItem = (props) =>{
     const deleteHander = () =>{
         dispatch(removeFromCartListAction(props))
     }
-
+    console.log(props)
     useEffect(() =>{
-        const idx = cartList.findIndex(({id})=> id ===props.id)
+        const idx = cartList.findIndex(({_id})=> _id ===props.id)
         setIdx(idx)
         },[cartList,props.id])
     return (
-    <Row className="mt-3">
+    <Row className="mt-3" style={{width: '100%'}}>
         <Col md={1} lg={1} sm={2} xs={1} > 
             <Image variant="top" src={props.img}  fluid rounded/>
         </Col>

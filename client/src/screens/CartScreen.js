@@ -42,8 +42,8 @@ const CartScreen = () => {
                         key={index}
                         name={item.name}
                         index={index} 
-                        id={item.id} 
-                        img={item.img}
+                        id={item._id} 
+                        img={item.image}
                         // priceHandler= {priceHandler}
                         price={item.price}
                         />)}

@@ -12,12 +12,23 @@ const ProductScreen = (props) => {
     const editPath = `/product/${id}/edit`
     const dispatch = useDispatch()
     const product = useSelector(state=>state.product);
+    const cartList = useSelector(state=> state.cartList)
+
+
     useEffect(() => {
         dispatch(fetchSingleProductAction(id))
-    },[product,id,dispatch])
+    },[])
 
     const addCartHandler = () =>{
-        dispatch(addToCartListAction(product,product.index))
+        let syncButtonSetter = false
+        for(let item of cartList){
+            if(item._id === id){
+                syncButtonSetter = true
+            }
+        }
+        if(syncButtonSetter === false){
+            dispatch(addToCartListAction(product))
+        } 
     }
     return(
         <Container className="mt-5">
