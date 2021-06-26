@@ -1,11 +1,11 @@
-import React,{useEffect,useState} from 'react'
+import React,{ useEffect,useState } from 'react'
 import FileBase from 'react-file-base64';
 import { Redirect } from 'react-router-dom'
 
 
 import { Form, Button, Container } from 'react-bootstrap';
 
-import {fetchSingleProduct, editProduct, deleteProduct} from '../api/api'
+import { fetchSingleProduct, editProduct, deleteProduct } from '../api/api'
 
 
 

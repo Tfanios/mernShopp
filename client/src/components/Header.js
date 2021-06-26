@@ -1,15 +1,23 @@
-import React from 'react'
+import React,{ useEffect,useState } from 'react'
 
 
 import Navbar from 'react-bootstrap/Navbar'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
+import Button from 'react-bootstrap/Button'
+import { TiShoppingCart } from 'react-icons/ti'
 
 import { NavLink } from 'react-router-dom'
-
+import {useSelector,} from 'react-redux'
 
 
 const Header =() => {
+    const [itemNumber,setItemNumber] = useState(0)
+    const cartList = useSelector(state => state.cartList)
+
+    useEffect(() => {
+        setItemNumber(cartList.length)
+    },[cartList])
      return (
         <Navbar bg="dark" variant="dark">
             <Navbar.Brand href="/">MernShop</Navbar.Brand>
@@ -23,7 +31,11 @@ const Header =() => {
             </Nav>
             <Form inline>
               <NavLink to="/cart">
-                    <Navbar.Text className="mr-5">Cart</Navbar.Text>
+                    <Button className="mr-5" style={{width:'100%'}}>
+                        {itemNumber}
+                        &nbsp;&nbsp; 
+                        <TiShoppingCart style={{height:'100%'}} color='white' />
+                    </Button>
                </NavLink>
             </Form>
         </Navbar>

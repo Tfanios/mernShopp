@@ -1,7 +1,7 @@
 import './App.css';
 import Container from 'react-bootstrap/Container'
 import Header from './components/Header';
-import {Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen';

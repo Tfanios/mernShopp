@@ -4,40 +4,37 @@ import { Card,Button,Image } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 
+import { addToCartListAction } from '../actions/cartActions'
+import { useDispatch,useSelector } from 'react-redux'
 
 // const moreTxt = () =>{
 //     return(<div style={{fontSize:'1rem',color:'#0069d9'}}>Read more...</div>)
 // }
 
 const Product = (product) =>{
-    const editPath = `/product/${product.id}/edit`
+    const itemPath = `/product/${product.id}`
+
+    const dispatch = useDispatch();
+    const cartList = useSelector(state=> state.cartList)
 
     const clickHandler = () =>{
-        let products = [];
         let syncButtonSetter = false
-        if(localStorage.getItem('products')){
-            products = JSON.parse(localStorage.getItem('products'));
-        }
-        for(let i=0; i<products.length;i++){
-            if(products[i].productId === product.id){
-                alert("This product is already in your cart");
+        for(let item of cartList){
+            if(item.id === product.id){
                 syncButtonSetter = true
             }
         }
         if(syncButtonSetter === false){
-            products.push({productId : product.id, image : product.img, name:product.name,price:product.price});
-            localStorage.setItem('products', JSON.stringify(products));
+            dispatch(addToCartListAction(product))
         }   
     }
-
     return(
     
     <Card style={{ width: '100%',height:'450px'}}>
         <Image  src={product.img} className='ratio ratio-21x9' fluid style={{maxHeight:'200px',margin:'auto',maxWidth:'350px',objectFit:'cover'}} />
         <Card.Body>
-            <Card.Title>{product.name}</Card.Title>                
-            <NavLink to={editPath}>
-                <p>Edit</p>
+            <NavLink to={itemPath}>
+                <Card.Title>{product.name}</Card.Title>                
             </NavLink>
             <p>{product.price} $</p>
             <p>{product.description}</p>

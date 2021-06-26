@@ -1,41 +1,36 @@
-import React,{useState} from 'react';
+import React,{ useState, useEffect } from 'react';
 
-import {Button,  Col, Image, Row, } from 'react-bootstrap'
-import {Link} from 'react-router-dom'
-import {FaTrash } from 'react-icons/fa'
+import { Button,  Col, Image, Row, } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { FaTrash } from 'react-icons/fa'
 import { GoPlus } from 'react-icons/go'
 import { FiMinus } from 'react-icons/fi'
 
+import { useSelector,useDispatch } from 'react-redux'
+import { removeFromCartListAction, addQuantityToCartItemAction, removeQuantityToCartItemAction } from '../actions/cartActions'
+
 
 const CartItem = (props) =>{
-    const [quantity,setQuantity] = useState(1)
-    const [disabledButton,setDisabledButton]= useState(false)
+    const [idx, setIdx]= useState(0)
+    const cartList = useSelector(state=> state.cartList)
+    const dispatch = useDispatch()
 
     const addQuantityHandler = () => {
-        if(quantity>0){
-            setDisabledButton(false)
-        }
-        let newQuantity = quantity + 1;
-        setQuantity(newQuantity)
-        let priceChange=(props.price)
-        props.priceHandler(priceChange)
-        
+        dispatch(addQuantityToCartItemAction(props)) 
     }
     const minusQuantityHandler = () => {
-        if(quantity === 1){
-            setDisabledButton(true)
-        }else{
-            let newQuantity = quantity - 1;
-            setQuantity(newQuantity)
-            let priceChange=(-props.price)
-            props.priceHandler(priceChange)
+        if(cartList[idx].quantity>1){
+           dispatch(removeQuantityToCartItemAction(props))
         }
     }
-    
     const deleteHander = () =>{
-        props.delete(props.index)
+        dispatch(removeFromCartListAction(props))
     }
 
+    useEffect(() =>{
+        const idx = cartList.findIndex(({id})=> id ===props.id)
+        setIdx(idx)
+        },[cartList,props.id])
     return (
     <Row className="mt-3">
         <Col md={1} lg={1} sm={2} xs={1} > 
@@ -48,18 +43,18 @@ const CartItem = (props) =>{
             <Row className="justify-content-center">
                 <Button onClick={minusQuantityHandler}
                 style={{border:'none',backgroundColor:'transparent'}}
-                disabled={disabledButton} variant="danger">
+                variant="danger">
                     <FiMinus color='#000000' />
                 </Button>
                 
-                <p style={{margin:'auto 0'}}>{quantity}</p>
+                <p style={{margin:'auto 0'}}>{cartList[idx].quantity}</p>
                 <Button onClick={addQuantityHandler} style={{border:'none',backgroundColor:'transparent'}}><GoPlus color='#000000' /></Button>
             </Row>
         </Col>
         <Col sm={1} xs={1}>
            <FaTrash onClick={deleteHander}  style={{cursor:'pointer'}}/>
         </Col>
-        <Col md={1} sm={{span:3,offset:1}} xs={{span:1,offset:1}}><p>{props.price*quantity}$</p></Col>
+        <Col md={1} sm={{span:3,offset:1}} xs={{span:1,offset:1}}><p>{props.price*cartList[idx].quantity}$</p></Col>
     </Row>)
 }
 

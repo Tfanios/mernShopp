@@ -1,38 +1,20 @@
 import React,{useState,useEffect} from 'react'
 import { Col, Container,ListGroup,Row } from 'react-bootstrap';
 import CartItem from '../components/CartItem'
+import { useSelector } from 'react-redux'
 
 const CartScreen = () => {
-    const [cartList,setCartList] = useState([])
     const [totalPrice,setTotalPrice] = useState(0)
-   
-
-    const priceHandler = (data) =>{
-        let newPrice = totalPrice + data
-        setTotalPrice(newPrice)
-    }
+    const cartList = useSelector(state=> state.cartList)
     
-    const DeleteHandler = (index) =>{
-        let carts = JSON.parse(localStorage.getItem('products'))
-        carts.splice(index, 1);
-        setCartList(carts)
-        let totalPrice = Object.values(carts).reduce((t, {price}) => t + price, 0)
-        setTotalPrice(totalPrice)
-        localStorage.setItem('products', JSON.stringify(carts))
 
-    }
-    
+    // UPDATE TOTAL PRICE ON CHANGE //
     useEffect(()=>{
-        let products =[]
-        if(localStorage.getItem('products')){
-            products = JSON.parse(localStorage.getItem('products'));
-        }
-        setCartList(products)
-        let totalPrice = Object.values(products).reduce((t, {price}) => t + price, 0)
-
-        setTotalPrice(totalPrice)
-        
-    },[])
+        if(cartList){
+            let totalPrice = Object.values(cartList).reduce((t, {price, quantity}) => t + price*quantity, 0)
+            setTotalPrice(totalPrice)
+        }  
+    },[cartList])
     return(
         <Container className="md mt-5 pb-5">
             {(cartList.length === 0)?
@@ -60,11 +42,10 @@ const CartScreen = () => {
                         key={index}
                         name={item.name}
                         index={index} 
-                        id={item.productId} 
-                        img={item.image}
-                        priceHandler= {priceHandler}
+                        id={item.id} 
+                        img={item.img}
+                        // priceHandler= {priceHandler}
                         price={item.price}
-                        delete={DeleteHandler}
                         />)}
                     </ListGroup>
                 </Row>

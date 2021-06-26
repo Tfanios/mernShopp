@@ -1,31 +1,39 @@
-import React,{useEffect,useState} from 'react'
-import { Col, Container, Row } from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import React,{ useEffect } from 'react'
+import { Col, Container, Row,Image,Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 
-import {fetchSingleProduct} from '../api/api'
+import { useDispatch,useSelector } from 'react-redux'
+import { fetchSingleProductAction } from '../actions/productActions'
+import { addToCartListAction } from '../actions/cartActions'
 
 
 const ProductScreen = (props) => {
-    const [product, setProduct] = useState([]);
     const { id } = props.match.params;
     const editPath = `/product/${id}/edit`
+    const dispatch = useDispatch()
+    const product = useSelector(state=>state.product);
     useEffect(() => {
-        const productData = async () => {
-            const { data } = await fetchSingleProduct(id);
-            setProduct(data)
-        };
-        productData()
-        
-        
-    },[id])
+        dispatch(fetchSingleProductAction(id))
+    },[product,id,dispatch])
+
+    const addCartHandler = () =>{
+        dispatch(addToCartListAction(product,product.index))
+    }
     return(
-        <Container>
+        <Container className="mt-5">
             <Row className="justify-content-md-center">
-                <Col>
-                    <p>{product.name}</p>
-                    <Link to={editPath}>Edit</Link>
+                <Col lg={6} md={6}>
+                    <Image src={product.image}  className='ratio ratio-21x9' fluid thumbnail/>
+                </Col>
+                <Col lg={6} md={6}>
+                    <h2>{product.name}</h2>
+                    <h5>{product.brand}</h5>
+                    <p>{product.description}</p>
+                    <h5>Price:{product.price}</h5>
+                    <Button onClick={addCartHandler}>Add item to cart</Button>
                 </Col>
             </Row>
+            <Link to={editPath}>Edit</Link>
         </Container>
     )
 }

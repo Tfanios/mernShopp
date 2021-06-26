@@ -22,10 +22,11 @@ const PORT = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: process.env.HEROKU_URL,
+  origin:  "http://localhost:3000",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: false
 }));
+// process.env.HEROKU_URL
 
 app.use('/product', productRoutes)
 
