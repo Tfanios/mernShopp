@@ -14,6 +14,7 @@ import {useSelector,} from 'react-redux'
 const Header =() => {
     const [itemNumber,setItemNumber] = useState(0)
     const cartList = useSelector(state => state.cartList)
+    const { isLoggedIn } = useSelector(state => state.login)
 
     useEffect(() => {
         setItemNumber(cartList.length)
@@ -21,13 +22,20 @@ const Header =() => {
      return (
         <Navbar bg="dark" variant="dark">
             <Navbar.Brand href="/">MernShop</Navbar.Brand>
-            <Nav className="mr-auto">
+            <Nav className="mr-auto ml-3">
                 <NavLink to="/" >
                     <Navbar.Text>Home</Navbar.Text>
                 </NavLink>
+                {(isLoggedIn)
+                ?
                 <NavLink to="/products/new">
                     <Navbar.Text className="ml-5">Add Product</Navbar.Text>
                 </NavLink>
+                :
+                <NavLink to="/login" >
+                    <Navbar.Text className="ml-5">Login</Navbar.Text>
+                </NavLink>
+                }
             </Nav>
             <Form inline>
               <NavLink to="/cart">

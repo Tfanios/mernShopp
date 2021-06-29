@@ -13,7 +13,7 @@ const ProductScreen = (props) => {
     const dispatch = useDispatch()
     const product = useSelector(state=>state.product);
     const cartList = useSelector(state=> state.cartList)
-
+    const { isLoggedIn } = useSelector(state=> state.login)
 
     useEffect(() => {
         dispatch(fetchSingleProductAction(id))
@@ -44,7 +44,13 @@ const ProductScreen = (props) => {
                     <Button onClick={addCartHandler}>Add item to cart</Button>
                 </Col>
             </Row>
+            {(isLoggedIn)
+            ?
             <Link to={editPath}>Edit</Link>
+            :
+            null
+            }
+            
         </Container>
     )
 }

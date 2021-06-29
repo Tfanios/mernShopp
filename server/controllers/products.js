@@ -52,7 +52,7 @@ export const deleteProduct = async(req,res) =>{
     console.log('yo')
     try{
         deleteProduct();
-        res.status(201).json(deleteProduct);
+        res.status(201).json('completed');
     }catch (error) {
         res.status(409).json({message:error.message})
         }

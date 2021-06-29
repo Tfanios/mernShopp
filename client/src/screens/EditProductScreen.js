@@ -17,12 +17,12 @@ const EditProductScreen = (props) => {
     
     const submitHandler = async(e) =>{
         e.preventDefault()
-        // await editProduct(id,productData);
+        await editProduct(id,productData);
         setRedirect(true)
     }
     const deleteHandler = async(e) =>{
         e.preventDefault()
-        // await deleteProduct(id)
+        await deleteProduct(id)
         setRedirect(true)
     }
 

@@ -41,8 +41,21 @@ const cartListReducer = (state = [], action)=>{
     }
 }
 
+/////////////// LOGIN REDUCER ////////////
+const loginInitialState = {userName:'admin',password:'hardToCrackPassword',isLoggedIn:false};
+
+const loginReducer = (state = loginInitialState , action) =>{
+    switch(action.type){
+        case 'LOGIN_ATTEMPT':
+            if(action.payload.userName === state.userName && action.payload.password === state.password){
+                return {...state,isLoggedIn:true }
+            }
+            return {...state}
+        default:return {...state}
+    }
+
+}
 
 
 
-
-export default combineReducers({ allProducts:allProductsReducer, product:singleProductReducer, cartList:cartListReducer })
+export default combineReducers({ allProducts:allProductsReducer, product:singleProductReducer, cartList:cartListReducer, login:loginReducer })
